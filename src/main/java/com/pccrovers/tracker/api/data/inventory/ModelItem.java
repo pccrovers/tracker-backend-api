@@ -2,6 +2,9 @@ package com.pccrovers.tracker.api.data.inventory;
 
 import com.pccrovers.tracker.api.data.BaseModel;
 
+/**
+ * Items in inventory
+ */
 public class ModelItem extends BaseModel
 {
     /**

@@ -2,10 +2,24 @@ package com.pccrovers.tracker.api.data.attendance;
 
 import com.pccrovers.tracker.api.data.BaseModel;
 
+/**
+ * A record for each attendance entry
+ */
 public class ModelAttendanceRecord extends BaseModel
 {
+    /**
+     * The id of the user in question
+     */
     public Long userId;
+
+    /**
+     * The date of the record in milliseconds since epoch
+     */
     public Long date;
+
+    /**
+     * Did the user attend?
+     */
     public Presence presence;
 
     public enum Presence

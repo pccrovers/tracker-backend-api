@@ -2,6 +2,9 @@ package com.pccrovers.tracker.api.data.user;
 
 import com.pccrovers.tracker.api.data.BaseModel;
 
+/**
+ * Used for associating users with groups
+ */
 public class ModelUserGroup extends BaseModel
 {
     /**
