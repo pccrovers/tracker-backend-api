@@ -78,7 +78,6 @@ public class BranchGroup extends BaseBranch
     protected JsonElement patch(HashMap<String, String> params)
     {
         group.name = params.get("name");
-        group.groupNumber = Integer.valueOf(params.get("group_number"));
 
         try
         {
@@ -97,7 +96,6 @@ public class BranchGroup extends BaseBranch
     protected JsonElement put(HashMap<String, String> params)
     {
         group.name = params.get("name");
-        group.groupNumber = Integer.valueOf(params.get("group_number"));
 
         try
         {

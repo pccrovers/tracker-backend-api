@@ -73,7 +73,6 @@ public class BranchGroups extends BaseBranch
         ModelGroup group = new ModelGroup();
 
         group.name = params.get("name");
-        group.groupNumber = Integer.valueOf(params.get("group_number"));
 
         group.insert();
 

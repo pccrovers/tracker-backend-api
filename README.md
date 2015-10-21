@@ -53,7 +53,6 @@ PCCRovers Tracker Api
 - Group
     - `public long id;`
     - `public String name;`
-    - `public int group_number;`
 - Section
     - `public long id;`
     - `public String name;`

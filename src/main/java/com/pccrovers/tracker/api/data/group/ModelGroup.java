@@ -8,7 +8,6 @@ import com.pccrovers.tracker.api.data.BaseModel;
 public class ModelGroup extends BaseModel
 {
     public String name;
-    public Integer groupNumber;
 
     @Override
     protected String getEntityName()
