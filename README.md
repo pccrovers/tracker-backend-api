@@ -67,11 +67,11 @@ PCCRovers Tracker Api
     - `public String model;`
     - `public String serial_number;`
     - `public int number`
-    - `public long loaned_to_user_id;`
+    - `public long borrower_user_id;`
 - AttendanceRecord
     - `public long id;`
     - `public long user_id;`
-    - `public String date;`
+    - `public long date;`
     - `public String presence;`
 - AttendanceOverview
     - To Be Determined
