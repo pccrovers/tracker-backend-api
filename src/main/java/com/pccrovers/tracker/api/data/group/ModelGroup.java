@@ -7,6 +7,9 @@ import com.pccrovers.tracker.api.data.BaseModel;
  */
 public class ModelGroup extends BaseModel
 {
+    /**
+     * The name of the group (i.e. 180th Pacific Coast Scout Group)
+     */
     public String name;
 
     @Override
