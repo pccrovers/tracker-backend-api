@@ -4,7 +4,6 @@
     <servlet>
         <servlet-name>GroupApiServlet</servlet-name>
         <servlet-class>com.pccrovers.tracker.api.GroupApiServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
@@ -40,6 +39,26 @@
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/auth/logout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>OAuth2Servlet</servlet-name>
+        <servlet-class>com.pccrovers.tracker.api.auth.OAuthServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>OAuth2Servlet</servlet-name>
+        <url-pattern>/oauth2/auth</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>OAuth2CallbackServlet</servlet-name>
+        <servlet-class>com.pccrovers.tracker.api.auth.OAuthCallbackServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>OAuth2CallbackServlet</servlet-name>
+        <url-pattern>/oauth2/callback</url-pattern>
     </servlet-mapping>
 
 </web-app>
