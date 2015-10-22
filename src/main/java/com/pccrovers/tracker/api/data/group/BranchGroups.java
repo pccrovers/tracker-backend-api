@@ -6,12 +6,11 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.pccrovers.tracker.api.data.BaseBranch;
 import com.pccrovers.tracker.api.data.ShardedCounter;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class BranchGroups extends BaseBranch
 {
@@ -30,7 +29,7 @@ public class BranchGroups extends BaseBranch
     }
 
     @Override
-    protected JsonElement get(HashMap<String,String> params)
+    protected JsonElement get(Map<String, String[]> params)
     {
         Query q = new Query("Group");
 
@@ -38,9 +37,9 @@ public class BranchGroups extends BaseBranch
 
         FetchOptions fo = FetchOptions.Builder.withLimit(DEFAULT_COLLECTION_LIMIT);
         if(params.containsKey("limit"))
-            fo.limit(Integer.parseInt(params.get("limit")));
+            fo.limit(Integer.parseInt(params.get("limit")[0]));
         if(params.containsKey("page"))
-            fo.offset(fo.getLimit() * (Integer.parseInt(params.get("page"))-1));
+            fo.offset(fo.getLimit() * (Integer.parseInt(params.get("page")[0])-1));
 
         Iterable<Entity> entities = pq.asIterable(fo);
 
@@ -68,11 +67,11 @@ public class BranchGroups extends BaseBranch
     }
 
     @Override
-    protected JsonElement post(HashMap<String, String> params)
+    protected JsonElement post(Map<String, String[]> params)
     {
         ModelGroup group = new ModelGroup();
 
-        group.name = params.get("name");
+        group.name = params.get("name")[0];
 
         group.insert();
 

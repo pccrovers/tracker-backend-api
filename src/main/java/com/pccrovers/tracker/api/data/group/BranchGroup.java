@@ -9,7 +9,7 @@ import com.pccrovers.tracker.api.data.ShardedCounter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.Map;
 
 public class BranchGroup extends BaseBranch
 {
@@ -36,7 +36,7 @@ public class BranchGroup extends BaseBranch
     }
 
     @Override
-    protected JsonElement get(HashMap<String,String> params)
+    protected JsonElement get(Map<String, String[]> params)
     {
 
         try
@@ -60,7 +60,7 @@ public class BranchGroup extends BaseBranch
     }
 
     @Override
-    protected JsonElement post(HashMap<String, String> params)
+    protected JsonElement post(Map<String, String[]> params)
     {
         if(group.exists(groupId))
         {
@@ -75,9 +75,9 @@ public class BranchGroup extends BaseBranch
     }
 
     @Override
-    protected JsonElement patch(HashMap<String, String> params)
+    protected JsonElement patch(Map<String, String[]> params)
     {
-        group.name = params.get("name");
+        group.name = params.get("name")[0];
 
         try
         {
@@ -93,9 +93,9 @@ public class BranchGroup extends BaseBranch
     }
 
     @Override
-    protected JsonElement put(HashMap<String, String> params)
+    protected JsonElement put(Map<String, String[]> params)
     {
-        group.name = params.get("name");
+        group.name = params.get("name")[0];
 
         try
         {
@@ -111,7 +111,7 @@ public class BranchGroup extends BaseBranch
     }
 
     @Override
-    protected JsonElement delete(HashMap<String, String> params)
+    protected JsonElement delete(Map<String, String[]> params)
     {
         group.delete(groupId);
         new ShardedCounter("groups").decrement();

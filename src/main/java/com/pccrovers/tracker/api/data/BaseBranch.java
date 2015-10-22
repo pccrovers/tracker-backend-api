@@ -9,8 +9,8 @@ import com.google.gson.JsonPrimitive;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Map;
 
 public abstract class BaseBranch
 {
@@ -21,39 +21,36 @@ public abstract class BaseBranch
     protected String error = null;
     protected int status = 200;
 
+    private Map<String, JsonElement> extras;
+
     public abstract BaseBranch traverse(String path);
 
     public void process(HttpServletRequest req, HttpServletResponse resp) throws IOException
     {
+        PrintWriter writer = resp.getWriter();
         JsonElement retData = null;
 
-        HashMap<String,String> paramMap = new HashMap<>();
-        Enumeration parameterNames = req.getParameterNames();
-        while(parameterNames.hasMoreElements())
-        {
-            String name = (String) parameterNames.nextElement();
-            paramMap.put(name, req.getParameter(name));
-        }
+        @SuppressWarnings("unchecked")
+        Map<String, String[]> map = req.getParameterMap();
 
         try
         {
             switch (req.getMethod().toLowerCase())
             {
                 case "get":
-                    retData = get(paramMap);
+                    retData = get(map);
                     break;
                 case "post":
-
-                    retData = post(paramMap);
+                    retData = post(map);
                     break;
                 case "patch":
-                    retData = patch(paramMap);
+                    retData = patch(map);
                     break;
                 case "put":
-                    retData = put(paramMap);
+                    retData = put(map);
                     break;
                 case "delete":
-                    retData = delete(paramMap);
+                    retData = delete(map);
                     break;
                 default:
                     status = 404;
@@ -111,31 +108,31 @@ public abstract class BaseBranch
         resp.getWriter().write(response.toString());
     }
 
-    protected JsonElement get(HashMap<String,String> parameters)
+    protected JsonElement get(Map<String, String[]> parameters)
     {
         status = 404;
         error = "Resource not found";
         return null;
     }
-    protected JsonElement post(HashMap<String,String> parameters)
+    protected JsonElement post(Map<String, String[]> parameters)
     {
         status = 404;
         error = "Resource not found";
         return null;
     }
-    protected JsonElement patch(HashMap<String,String> parameters)
+    protected JsonElement patch(Map<String, String[]> parameters)
     {
         status = 404;
         error = "Resource not found";
         return null;
     }
-    protected JsonElement put(HashMap<String,String> parameters)
+    protected JsonElement put(Map<String, String[]> parameters)
     {
         status = 404;
         error = "Resource not found";
         return null;
     }
-    protected JsonElement delete(HashMap<String,String> parameters)
+    protected JsonElement delete(Map<String, String[]> parameters)
     {
         status = 404;
         error = "Resource not found";
