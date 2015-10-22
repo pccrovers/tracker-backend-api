@@ -27,7 +27,6 @@ public abstract class BaseBranch
 
     public void process(HttpServletRequest req, HttpServletResponse resp) throws IOException
     {
-        PrintWriter writer = resp.getWriter();
         JsonElement retData = null;
 
         @SuppressWarnings("unchecked")
@@ -61,50 +60,36 @@ public abstract class BaseBranch
         {
             status = 500;
             error = e.getMessage();
+            e.printStackTrace();
         }
 
-        resp.setStatus(status);
-
-        JsonElement response;
+        JsonObject response = new JsonObject();
         if(error != null)
         {
-            JsonObject jo = new JsonObject();
-
             JsonObject data = new JsonObject();
             data.addProperty("error", error);
             data.addProperty("request", req.getServletPath());
             data.addProperty("method", req.getMethod());
 
-            jo.add("data", data);
-            jo.addProperty("success", false);
-            jo.addProperty("status", status);
-
-            response = jo;
+            response.add("data", data);
         }
-        else if(retData instanceof JsonPrimitive)
+        else if(retData != null)
         {
-            JsonObject jo = new JsonObject();
-
-            jo.add("data", retData);
-            jo.addProperty("success", true);
-            jo.addProperty("status", status);
-
-            response = jo;
+            response.add("data", retData);
         }
-        else if(retData == null)
+
+        if(extras != null)
         {
-            JsonObject jo = new JsonObject();
-
-            jo.addProperty("success", true);
-            jo.addProperty("status", status);
-
-            response = jo;
-        }
-        else
-        {
-            response = retData;
+            for (Map.Entry<String, JsonElement> entry : extras.entrySet())
+            {
+                response.add(entry.getKey(), entry.getValue());
+            }
         }
 
+        response.addProperty("success", error == null);
+        response.addProperty("status", status);
+
+        resp.setStatus(status);
         resp.getWriter().write(response.toString());
     }
 
@@ -137,5 +122,29 @@ public abstract class BaseBranch
         status = 404;
         error = "Resource not found";
         return null;
+    }
+
+    protected void addExtra(String key, Object obj)
+    {
+        JsonPrimitive jp;
+        if(obj instanceof Boolean)
+            jp = new JsonPrimitive((Boolean) obj);
+        else if(obj instanceof Number)
+            jp = new JsonPrimitive((Number) obj);
+        else if(obj instanceof String)
+            jp = new JsonPrimitive((String) obj);
+        else if(obj instanceof Character)
+            jp = new JsonPrimitive((Character) obj);
+        else
+            jp = new JsonPrimitive(obj.toString());
+
+        addExtra(key, jp);
+    }
+
+    protected void addExtra(String key, JsonElement value)
+    {
+        if(extras == null) extras = new HashMap<>();
+
+        extras.put(key, value);
     }
 }

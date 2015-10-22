@@ -51,19 +51,13 @@ public class BranchGroups extends BaseBranch
             ja.add(group.toJsonObject());
         }
 
-        JsonObject jo = new JsonObject();
-
-        jo.add("data", ja);
 
         if(params.containsKey("count"))
         {
-            jo.addProperty("count", new ShardedCounter("groups").getCount());
+            addExtra("count", new ShardedCounter("groups").getCount());
         }
 
-        jo.addProperty("success", true);
-        jo.addProperty("status", 200);
-
-        return jo;
+        return ja;
     }
 
     @Override
