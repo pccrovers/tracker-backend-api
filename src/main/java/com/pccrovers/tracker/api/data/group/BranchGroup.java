@@ -2,7 +2,6 @@ package com.pccrovers.tracker.api.data.group;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.pccrovers.tracker.api.data.BaseBranch;
 import com.pccrovers.tracker.api.data.ShardedCounter;
 
@@ -43,13 +42,7 @@ public class BranchGroup extends BaseBranch
         {
             group.get(groupId);
 
-            JsonObject jo = new JsonObject();
-
-            jo.add("data", group.toJsonObject());
-            jo.addProperty("success", true);
-            jo.addProperty("status", 200);
-
-            return jo;
+            return group.toJsonObject();
         }
         catch (EntityNotFoundException e)
         {
