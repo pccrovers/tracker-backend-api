@@ -85,6 +85,7 @@ public abstract class BaseModel
         {
             if(Modifier.isStatic(field.getModifiers())) continue;
             if(Modifier.isFinal(field.getModifiers())) continue;
+            if(!Modifier.isPublic(field.getModifiers())) continue;
 
             try
             {
