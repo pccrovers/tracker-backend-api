@@ -73,6 +73,6 @@ public class BranchGroups extends BaseBranch
 
         status = 201;
 
-        return new JsonPrimitive(group.getId());
+        return new JsonPrimitive(group.getId().getId());
     }
 }
