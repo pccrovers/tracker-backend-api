@@ -70,7 +70,7 @@ public abstract class BaseModel
         BaseBranch.DATASTORE.delete(createKey(id));
     }
 
-    protected String getEntityName()
+    protected String getKindName()
     {
         return this.getClass().getSimpleName();
     }
@@ -85,6 +85,7 @@ public abstract class BaseModel
         {
             if(Modifier.isStatic(field.getModifiers())) continue;
             if(Modifier.isFinal(field.getModifiers())) continue;
+            if(!Modifier.isPublic(field.getModifiers())) continue;
 
             try
             {
@@ -94,6 +95,8 @@ public abstract class BaseModel
 
                 if(value == null)
                     retObj.add(name, JsonNull.INSTANCE);
+                else if(value instanceof Key)
+                    retObj.addProperty(name, ((Key) value).getId());
                 else if(value instanceof String)
                     retObj.addProperty(name, (String) value);
                 else if(value instanceof Boolean)
@@ -145,12 +148,12 @@ public abstract class BaseModel
 
     protected Entity toEntity()
     {
-        return toEntity(new Entity(getEntityName()));
+        return toEntity(new Entity(getKindName()));
     }
 
     protected Entity toEntity(Long id)
     {
-        return toEntity(new Entity(getEntityName(), id));
+        return toEntity(new Entity(getKindName(), id));
     }
 
     protected Entity toEntity(Entity entity)
@@ -176,6 +179,6 @@ public abstract class BaseModel
 
     protected Key createKey(long id)
     {
-        return KeyFactory.createKey(getEntityName(), id);
+        return KeyFactory.createKey(getKindName(), id);
     }
 }

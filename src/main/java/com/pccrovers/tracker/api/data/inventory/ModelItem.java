@@ -1,5 +1,6 @@
 package com.pccrovers.tracker.api.data.inventory;
 
+import com.google.appengine.api.datastore.Key;
 import com.pccrovers.tracker.api.data.BaseModel;
 
 /**
@@ -40,5 +41,5 @@ public class ModelItem extends BaseModel
     /**
      * The id of the user whom this item is lent to
      */
-    public Long borrowerUserId;
+    public Key borrowerUserId;
 }

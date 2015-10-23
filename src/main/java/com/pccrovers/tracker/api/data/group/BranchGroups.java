@@ -31,7 +31,7 @@ public class BranchGroups extends BaseBranch
     @Override
     protected JsonElement get(Map<String, String[]> params)
     {
-        Query q = new Query("Group");
+        Query q = new Query(ModelGroup.GDS_KIND);
 
         PreparedQuery pq = DATASTORE.prepare(q);
 

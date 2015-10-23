@@ -1,5 +1,6 @@
 package com.pccrovers.tracker.api.data.user;
 
+import com.google.appengine.api.datastore.Key;
 import com.pccrovers.tracker.api.data.BaseModel;
 
 /**
@@ -20,12 +21,12 @@ public class ModelUserSection extends BaseModel
     /**
      * The user in question
      */
-    public Long userId;
+    public Key userId;
 
     /**
      * The section that the user is in
      */
-    public Long sectionId;
+    public Key sectionId;
 
     /**
      * Access permissions (i.e. read and write)
