@@ -1,5 +1,6 @@
 package com.pccrovers.tracker.api.data.user;
 
+import com.google.appengine.api.datastore.Key;
 import com.pccrovers.tracker.api.data.BaseModel;
 
 /**
@@ -10,10 +11,10 @@ public class ModelUserGroup extends BaseModel
     /**
      * The user in question
      */
-    public Long userId;
+    public Key userId;
 
     /**
      * The id of the group that the user is in
      */
-    public Long groupId;
+    public Key groupId;
 }

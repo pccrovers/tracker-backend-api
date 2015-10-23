@@ -1,5 +1,6 @@
 package com.pccrovers.tracker.api.data.section;
 
+import com.google.appengine.api.datastore.Key;
 import com.pccrovers.tracker.api.data.BaseModel;
 
 /**
@@ -10,7 +11,7 @@ public class ModelSection extends BaseModel
     /**
      * The id of the group that owns this section
      */
-    public Long groupId;
+    public Key groupId;
 
     /**
      * The name of the section (i.e. beavers, cubs, scouts, venturers, rovers)

@@ -95,6 +95,8 @@ public abstract class BaseModel
 
                 if(value == null)
                     retObj.add(name, JsonNull.INSTANCE);
+                else if(value instanceof Key)
+                    retObj.addProperty(name, ((Key) value).getId());
                 else if(value instanceof String)
                     retObj.addProperty(name, (String) value);
                 else if(value instanceof Boolean)
