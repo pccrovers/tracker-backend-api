@@ -13,7 +13,7 @@ public class ModelGroup extends BaseModel
     public String name;
 
     @Override
-    protected String getEntityName()
+    protected String getKindName()
     {
         return "Group";
     }

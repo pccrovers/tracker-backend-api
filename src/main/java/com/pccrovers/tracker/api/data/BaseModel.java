@@ -70,7 +70,7 @@ public abstract class BaseModel
         BaseBranch.DATASTORE.delete(createKey(id));
     }
 
-    protected String getEntityName()
+    protected String getKindName()
     {
         return this.getClass().getSimpleName();
     }
@@ -146,12 +146,12 @@ public abstract class BaseModel
 
     protected Entity toEntity()
     {
-        return toEntity(new Entity(getEntityName()));
+        return toEntity(new Entity(getKindName()));
     }
 
     protected Entity toEntity(Long id)
     {
-        return toEntity(new Entity(getEntityName(), id));
+        return toEntity(new Entity(getKindName(), id));
     }
 
     protected Entity toEntity(Entity entity)
@@ -177,6 +177,6 @@ public abstract class BaseModel
 
     protected Key createKey(long id)
     {
-        return KeyFactory.createKey(getEntityName(), id);
+        return KeyFactory.createKey(getKindName(), id);
     }
 }
