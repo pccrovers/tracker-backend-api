@@ -46,9 +46,7 @@ public class BranchGroup extends BaseBranch
         }
         catch (EntityNotFoundException e)
         {
-            status = 404;
-            error = e.getMessage();
-            return null;
+            return super.get(params);
         }
     }
 
@@ -58,13 +56,13 @@ public class BranchGroup extends BaseBranch
         if(group.exists(groupId))
         {
             status = 409;
+            error = "Conflict found";
+            return null;
         }
         else
         {
-            status = 404;
+            return super.post(params);
         }
-
-        return null;
     }
 
     @Override
@@ -78,8 +76,7 @@ public class BranchGroup extends BaseBranch
         }
         catch (EntityNotFoundException e)
         {
-            status = 404;
-            error = e.getMessage();
+            return super.post(params);
         }
 
         return null;
@@ -96,8 +93,7 @@ public class BranchGroup extends BaseBranch
         }
         catch (EntityNotFoundException e)
         {
-            status = 404;
-            error = e.getMessage();
+            return super.post(params);
         }
 
         return null;
