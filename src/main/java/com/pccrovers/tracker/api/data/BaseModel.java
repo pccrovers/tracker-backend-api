@@ -9,9 +9,9 @@ import java.lang.reflect.Modifier;
 
 public abstract class BaseModel
 {
-    protected Long id;
+    protected Key id;
 
-    public long getId()
+    public Key getId()
     {
         return id;
     }
@@ -38,8 +38,7 @@ public abstract class BaseModel
 
     public void insert()
     {
-        Key key = BaseBranch.DATASTORE.put(toEntity());
-        id = key.getId();
+        id = BaseBranch.DATASTORE.put(toEntity());
     }
 
     public void patch(long id) throws EntityNotFoundException
@@ -79,7 +78,7 @@ public abstract class BaseModel
     {
         JsonObject retObj = new JsonObject();
 
-        retObj.addProperty("id", id);
+        retObj.addProperty("id", id.getId());
 
         for(Field field : this.getClass().getDeclaredFields())
         {
@@ -135,8 +134,7 @@ public abstract class BaseModel
                     field.set(this, val);
             }
 
-            long id = entity.getKey().getId();
-            if(id > 0) this.id = id;
+            id = entity.getKey();
         }
         catch (IllegalAccessException e1)
         {
