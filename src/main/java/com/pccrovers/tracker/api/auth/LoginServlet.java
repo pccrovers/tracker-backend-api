@@ -2,6 +2,7 @@ package com.pccrovers.tracker.api.auth;
 
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.google.appengine.repackaged.com.google.api.client.http.GenericUrl;
 import com.google.gson.JsonObject;
 
 import javax.servlet.ServletException;
@@ -31,7 +32,10 @@ public class LoginServlet extends HttpServlet
         }
         else
         {
-            jo.addProperty("data", userService.createLoginURL("/auth/callback?login"));
+            GenericUrl url = new GenericUrl(req.getRequestURI());
+            url.setRawPath("/auth/callback?login");
+
+            jo.addProperty("data", userService.createLoginURL(url.build()));
             jo.addProperty("success", true);
             jo.addProperty("status", 200);
 
