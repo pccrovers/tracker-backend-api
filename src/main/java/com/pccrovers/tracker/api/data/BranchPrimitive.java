@@ -4,7 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonPrimitive;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class BranchPrimitive<T> extends BaseBranch
 {
@@ -24,7 +24,7 @@ public class BranchPrimitive<T> extends BaseBranch
     }
 
     @Override
-    protected JsonElement get(HashMap<String,String> params)
+    protected JsonElement get(Map<String, String[]> params)
     {
         if(value instanceof String)
             return new JsonPrimitive((String) value);

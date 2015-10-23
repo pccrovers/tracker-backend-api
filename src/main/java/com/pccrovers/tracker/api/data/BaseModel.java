@@ -5,6 +5,7 @@ import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
 public abstract class BaseModel
 {
@@ -82,6 +83,9 @@ public abstract class BaseModel
 
         for(Field field : this.getClass().getDeclaredFields())
         {
+            if(Modifier.isStatic(field.getModifiers())) continue;
+            if(Modifier.isFinal(field.getModifiers())) continue;
+
             try
             {
                 // Convert Camel-Cased field name to snake-case for json
@@ -156,6 +160,9 @@ public abstract class BaseModel
             Field[] fields = this.getClass().getDeclaredFields();
             for (Field field : fields)
             {
+                if(Modifier.isStatic(field.getModifiers())) continue;
+                if(Modifier.isFinal(field.getModifiers())) continue;
+
                 entity.setProperty(field.getName(), field.get(this));
             }
         }

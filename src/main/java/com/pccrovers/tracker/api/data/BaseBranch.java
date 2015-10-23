@@ -9,8 +9,8 @@ import com.google.gson.JsonPrimitive;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Map;
 
 public abstract class BaseBranch
 {
@@ -21,39 +21,35 @@ public abstract class BaseBranch
     protected String error = null;
     protected int status = 200;
 
+    private Map<String, JsonElement> extras;
+
     public abstract BaseBranch traverse(String path);
 
     public void process(HttpServletRequest req, HttpServletResponse resp) throws IOException
     {
         JsonElement retData = null;
 
-        HashMap<String,String> paramMap = new HashMap<>();
-        Enumeration parameterNames = req.getParameterNames();
-        while(parameterNames.hasMoreElements())
-        {
-            String name = (String) parameterNames.nextElement();
-            paramMap.put(name, req.getParameter(name));
-        }
+        @SuppressWarnings("unchecked")
+        Map<String, String[]> map = req.getParameterMap();
 
         try
         {
             switch (req.getMethod().toLowerCase())
             {
                 case "get":
-                    retData = get(paramMap);
+                    retData = get(map);
                     break;
                 case "post":
-
-                    retData = post(paramMap);
+                    retData = post(map);
                     break;
                 case "patch":
-                    retData = patch(paramMap);
+                    retData = patch(map);
                     break;
                 case "put":
-                    retData = put(paramMap);
+                    retData = put(map);
                     break;
                 case "delete":
-                    retData = delete(paramMap);
+                    retData = delete(map);
                     break;
                 default:
                     status = 404;
@@ -64,81 +60,91 @@ public abstract class BaseBranch
         {
             status = 500;
             error = e.getMessage();
+            e.printStackTrace();
         }
 
-        resp.setStatus(status);
-
-        JsonElement response;
+        JsonObject response = new JsonObject();
         if(error != null)
         {
-            JsonObject jo = new JsonObject();
-
             JsonObject data = new JsonObject();
             data.addProperty("error", error);
             data.addProperty("request", req.getServletPath());
             data.addProperty("method", req.getMethod());
 
-            jo.add("data", data);
-            jo.addProperty("success", false);
-            jo.addProperty("status", status);
-
-            response = jo;
+            response.add("data", data);
         }
-        else if(retData instanceof JsonPrimitive)
+        else if(retData != null)
         {
-            JsonObject jo = new JsonObject();
-
-            jo.add("data", retData);
-            jo.addProperty("success", true);
-            jo.addProperty("status", status);
-
-            response = jo;
+            response.add("data", retData);
         }
-        else if(retData == null)
+
+        if(extras != null)
         {
-            JsonObject jo = new JsonObject();
-
-            jo.addProperty("success", true);
-            jo.addProperty("status", status);
-
-            response = jo;
-        }
-        else
-        {
-            response = retData;
+            for (Map.Entry<String, JsonElement> entry : extras.entrySet())
+            {
+                response.add(entry.getKey(), entry.getValue());
+            }
         }
 
+        response.addProperty("success", error == null);
+        response.addProperty("status", status);
+
+        resp.setStatus(status);
         resp.getWriter().write(response.toString());
     }
 
-    protected JsonElement get(HashMap<String,String> parameters)
+    protected JsonElement get(Map<String, String[]> parameters)
     {
         status = 404;
         error = "Resource not found";
         return null;
     }
-    protected JsonElement post(HashMap<String,String> parameters)
+    protected JsonElement post(Map<String, String[]> parameters)
     {
         status = 404;
         error = "Resource not found";
         return null;
     }
-    protected JsonElement patch(HashMap<String,String> parameters)
+    protected JsonElement patch(Map<String, String[]> parameters)
     {
         status = 404;
         error = "Resource not found";
         return null;
     }
-    protected JsonElement put(HashMap<String,String> parameters)
+    protected JsonElement put(Map<String, String[]> parameters)
     {
         status = 404;
         error = "Resource not found";
         return null;
     }
-    protected JsonElement delete(HashMap<String,String> parameters)
+    protected JsonElement delete(Map<String, String[]> parameters)
     {
         status = 404;
         error = "Resource not found";
         return null;
+    }
+
+    protected void addExtra(String key, Object obj)
+    {
+        JsonPrimitive jp;
+        if(obj instanceof Boolean)
+            jp = new JsonPrimitive((Boolean) obj);
+        else if(obj instanceof Number)
+            jp = new JsonPrimitive((Number) obj);
+        else if(obj instanceof String)
+            jp = new JsonPrimitive((String) obj);
+        else if(obj instanceof Character)
+            jp = new JsonPrimitive((Character) obj);
+        else
+            jp = new JsonPrimitive(obj.toString());
+
+        addExtra(key, jp);
+    }
+
+    protected void addExtra(String key, JsonElement value)
+    {
+        if(extras == null) extras = new HashMap<>();
+
+        extras.put(key, value);
     }
 }
