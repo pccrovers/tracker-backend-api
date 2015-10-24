@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Used for associating users with groups
  */
-public class ModelUserGroup extends BaseModel
+public class UserGroup extends BaseModel
 {
     public static final String GDS_KIND = "UserGroup";
 
@@ -43,20 +43,20 @@ public class ModelUserGroup extends BaseModel
      */
     public Integer permissions;
 
-    public static ModelUserGroup[] getByUserId(long userId)
+    public static UserGroup[] getByUserId(long userId)
     {
         Query q = new Query(GDS_KIND);
-        q.setFilter(new Query.FilterPredicate(Entity.KEY_RESERVED_PROPERTY, Query.FilterOperator.EQUAL, KeyFactory.createKey(ModelUser.GDS_KIND, userId)));
+        q.setFilter(new Query.FilterPredicate(Entity.KEY_RESERVED_PROPERTY, Query.FilterOperator.EQUAL, KeyFactory.createKey(User.GDS_KIND, userId)));
 
-        List<ModelUserGroup> userGroupList = new ArrayList<>();
+        List<UserGroup> userGroupList = new ArrayList<>();
         for(Entity e : BaseBranch.DATASTORE.prepare(q).asIterable())
         {
-            ModelUserGroup userGroup = new ModelUserGroup();
+            UserGroup userGroup = new UserGroup();
             userGroup.fromEntity(e);
             userGroupList.add(userGroup);
         }
 
-        return userGroupList.toArray(new ModelUserGroup[userGroupList.size()]);
+        return userGroupList.toArray(new UserGroup[userGroupList.size()]);
     }
 
     @Override

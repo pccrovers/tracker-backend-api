@@ -6,7 +6,7 @@ import com.google.appengine.api.datastore.Query;
 import com.pccrovers.tracker.api.data.ApiAccessible;
 import com.pccrovers.tracker.api.data.BaseBranch;
 import com.pccrovers.tracker.api.data.BaseModel;
-import com.pccrovers.tracker.api.data.group.ModelGroup;
+import com.pccrovers.tracker.api.data.group.Group;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Each person, volunteer or participant, is a user
  */
-public class ModelUser extends BaseModel
+public class User extends BaseModel
 {
     public static final String GDS_KIND = "User";
 
@@ -35,20 +35,20 @@ public class ModelUser extends BaseModel
     @ApiAccessible
     public String familyName;
 
-    public static ModelUser[] getByGroupId(long groupId)
+    public static User[] getByGroupId(long groupId)
     {
         Query q = new Query(GDS_KIND);
-        q.setFilter(new Query.FilterPredicate(Entity.KEY_RESERVED_PROPERTY, Query.FilterOperator.EQUAL, KeyFactory.createKey(ModelGroup.GDS_KIND, groupId)));
+        q.setFilter(new Query.FilterPredicate(Entity.KEY_RESERVED_PROPERTY, Query.FilterOperator.EQUAL, KeyFactory.createKey(Group.GDS_KIND, groupId)));
 
-        List<ModelUser> userList = new ArrayList<>();
+        List<User> userList = new ArrayList<>();
         for(Entity e : BaseBranch.DATASTORE.prepare(q).asIterable())
         {
-            ModelUser user = new ModelUser();
+            User user = new User();
             user.fromEntity(e);
             userList.add(user);
         }
 
-        return userList.toArray(new ModelUser[userList.size()]);
+        return userList.toArray(new User[userList.size()]);
     }
 
     @Override

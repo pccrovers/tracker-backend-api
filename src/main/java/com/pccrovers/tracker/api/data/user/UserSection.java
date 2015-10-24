@@ -6,7 +6,7 @@ import com.pccrovers.tracker.api.data.BaseModel;
 /**
  * Used for associating users with sections
  */
-public class ModelUserSection extends BaseModel
+public class UserSection extends BaseModel
 {
     /**
      * FLAG PERMISSIONS_READ = 1;

@@ -28,7 +28,7 @@ public class BranchUser extends BaseBranch
     @Override
     protected JsonElement get(Map<String, String[]> parameters)
     {
-        ModelUser user = new ModelUser();
+        User user = new User();
         try
         {
             user.get(userId);

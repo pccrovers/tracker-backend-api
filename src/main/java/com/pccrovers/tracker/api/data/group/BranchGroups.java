@@ -31,7 +31,7 @@ public class BranchGroups extends BaseBranch
     @Override
     protected JsonElement get(Map<String, String[]> params)
     {
-        Query q = new Query(ModelGroup.GDS_KIND);
+        Query q = new Query(Group.GDS_KIND);
 
         PreparedQuery pq = DATASTORE.prepare(q);
 
@@ -46,7 +46,7 @@ public class BranchGroups extends BaseBranch
         JsonArray ja = new JsonArray();
         for(Entity entity : entities)
         {
-            ModelGroup group = new ModelGroup();
+            Group group = new Group();
             group.fromEntity(entity);
             ja.add(group.toJsonObject());
         }
@@ -63,7 +63,7 @@ public class BranchGroups extends BaseBranch
     @Override
     protected JsonElement post(Map<String, String[]> params)
     {
-        ModelGroup group = new ModelGroup();
+        Group group = new Group();
 
         group.name = params.get("name")[0];
 

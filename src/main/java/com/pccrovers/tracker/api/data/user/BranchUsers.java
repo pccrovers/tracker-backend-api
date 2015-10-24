@@ -29,14 +29,14 @@ public class BranchUsers extends BaseBranch
     @Override
     protected JsonElement post(Map<String, String[]> parameters)
     {
-        ModelUser user = new ModelUser();
+        User user = new User();
 
         user.givenName = parameters.get("given_name")[0];
         user.familyName = parameters.get("family_name")[0];
 
         user.insert();
 
-        ModelUserInvitation registrationCode = new ModelUserInvitation();
+        UserInvitation registrationCode = new UserInvitation();
 
         registrationCode.userId = user.getId();
         registrationCode.insert();

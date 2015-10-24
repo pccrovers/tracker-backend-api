@@ -4,7 +4,7 @@ import com.google.appengine.api.datastore.*;
 import com.pccrovers.tracker.api.data.BaseBranch;
 import com.pccrovers.tracker.api.data.BaseModel;
 
-public class ModelUserInvitation extends BaseModel
+public class UserInvitation extends BaseModel
 {
     public static final String GDS_KIND = "UserInvitation";
 
@@ -18,13 +18,13 @@ public class ModelUserInvitation extends BaseModel
      */
     public Boolean used = false;
 
-    public static ModelUserInvitation getByUserId(long userId)
+    public static UserInvitation getByUserId(long userId)
     {
         Query q = new Query(GDS_KIND);
 
-        q.setFilter(new Query.FilterPredicate("userId", Query.FilterOperator.EQUAL, KeyFactory.createKey(ModelUser.GDS_KIND, userId)));
+        q.setFilter(new Query.FilterPredicate("userId", Query.FilterOperator.EQUAL, KeyFactory.createKey(User.GDS_KIND, userId)));
 
-        ModelUserInvitation invitation = new ModelUserInvitation();
+        UserInvitation invitation = new UserInvitation();
 
         invitation.fromEntity(BaseBranch.DATASTORE.prepare(q).asSingleEntity());
 

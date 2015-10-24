@@ -24,6 +24,6 @@ public class BranchUserInvitation extends BaseBranch
     @Override
     protected JsonElement get(Map<String, String[]> parameters)
     {
-        return new JsonPrimitive(ModelUserInvitation.getByUserId(userId).getCode());
+        return new JsonPrimitive(UserInvitation.getByUserId(userId).getCode());
     }
 }

@@ -6,7 +6,7 @@ import com.pccrovers.tracker.api.data.BaseModel;
 /**
  * A record for each attendance entry
  */
-public class ModelAttendanceRecord extends BaseModel
+public class AttendanceRecord extends BaseModel
 {
     /**
      * The id of the user in question

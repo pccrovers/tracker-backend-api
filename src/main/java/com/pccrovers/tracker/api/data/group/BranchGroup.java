@@ -14,7 +14,7 @@ public class BranchGroup extends BaseBranch
 {
     protected long groupId;
 
-    private ModelGroup group;
+    private Group group;
 
     public BranchGroup(long groupId)
     {
@@ -30,7 +30,7 @@ public class BranchGroup extends BaseBranch
     @Override
     public void process(HttpServletRequest req, HttpServletResponse resp) throws IOException
     {
-        group = new ModelGroup();
+        group = new Group();
         super.process(req, resp);
     }
 

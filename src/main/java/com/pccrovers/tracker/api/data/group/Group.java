@@ -6,7 +6,7 @@ import com.pccrovers.tracker.api.data.BaseModel;
 /**
  * Each home-group gets one 'group' record in the database
  */
-public class ModelGroup extends BaseModel
+public class Group extends BaseModel
 {
     public static final String GDS_KIND = "Group";
 
