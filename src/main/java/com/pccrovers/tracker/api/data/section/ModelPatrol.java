@@ -1,6 +1,7 @@
 package com.pccrovers.tracker.api.data.section;
 
 import com.google.appengine.api.datastore.Key;
+import com.pccrovers.tracker.api.data.ApiAccessible;
 import com.pccrovers.tracker.api.data.BaseModel;
 
 /**
@@ -11,10 +12,12 @@ public class ModelPatrol extends BaseModel
     /**
      * The id of the section that owns this patrol
      */
+    @ApiAccessible
     public Key sectionId;
 
     /**
      * The name of the patrol (i.e. Orca, Polar Bear)
      */
+    @ApiAccessible
     public String name;
 }

@@ -3,6 +3,7 @@ package com.pccrovers.tracker.api.data.user;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
+import com.pccrovers.tracker.api.data.ApiAccessible;
 import com.pccrovers.tracker.api.data.BaseBranch;
 import com.pccrovers.tracker.api.data.BaseModel;
 import com.pccrovers.tracker.api.data.group.ModelGroup;
@@ -25,11 +26,13 @@ public class ModelUser extends BaseModel
     /**
      * The given name of the user (i.e. first name)
      */
+    @ApiAccessible
     public String givenName;
 
     /**
      * The family name of the user (i.e. last name)
      */
+    @ApiAccessible
     public String familyName;
 
     public static ModelUser[] getByGroupId(long groupId)

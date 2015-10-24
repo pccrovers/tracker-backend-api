@@ -9,7 +9,8 @@ import java.lang.reflect.Modifier;
 
 public abstract class BaseModel
 {
-    protected Key id;
+    @ApiAccessible
+    private Key id;
 
     public Key getId()
     {
@@ -82,9 +83,7 @@ public abstract class BaseModel
 
         for(Field field : this.getClass().getDeclaredFields())
         {
-            if(Modifier.isStatic(field.getModifiers())) continue;
-            if(Modifier.isFinal(field.getModifiers())) continue;
-            if(!Modifier.isPublic(field.getModifiers())) continue;
+            if(field.getAnnotation(ApiAccessible.class) == null) continue;
 
             try
             {
@@ -134,11 +133,14 @@ public abstract class BaseModel
                     field.set(this, val);
             }
 
-            id = entity.getKey();
         }
         catch (IllegalAccessException e1)
         {
             e1.printStackTrace();
+        }
+        finally
+        {
+            id = entity.getKey();
         }
 
         return this;
