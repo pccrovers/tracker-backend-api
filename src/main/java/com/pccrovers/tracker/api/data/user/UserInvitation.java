@@ -6,7 +6,7 @@ import com.pccrovers.tracker.api.data.BaseModel;
 
 public class UserInvitation extends BaseModel
 {
-    public static final String GDS_KIND = "UserInvitation";
+    public static final String GDS_KIND = UserInvitation.class.getSimpleName();
 
     /**
      * The id of the user in question
@@ -47,11 +47,5 @@ public class UserInvitation extends BaseModel
     public String getCode()
     {
         return Long.toString(userId.getId(), Character.MAX_RADIX) + Long.toString(getId().getId(), Character.MAX_RADIX);
-    }
-
-    @Override
-    protected String getKindName()
-    {
-        return GDS_KIND;
     }
 }

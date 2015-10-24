@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class UserGroup extends BaseModel
 {
-    public static final String GDS_KIND = "UserGroup";
+    public static final String GDS_KIND = UserGroup.class.getSimpleName();
 
     /**
      * FLAG PERMISSIONS_READ = 1;
@@ -57,11 +57,5 @@ public class UserGroup extends BaseModel
         }
 
         return userGroupList.toArray(new UserGroup[userGroupList.size()]);
-    }
-
-    @Override
-    protected String getKindName()
-    {
-        return GDS_KIND;
     }
 }

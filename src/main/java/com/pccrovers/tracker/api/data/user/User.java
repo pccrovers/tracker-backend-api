@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class User extends BaseModel
 {
-    public static final String GDS_KIND = "User";
+    public static final String GDS_KIND = User.class.getSimpleName();
 
     /**
      * The account id received from google when the user accepts the invite
@@ -49,11 +49,5 @@ public class User extends BaseModel
         }
 
         return userList.toArray(new User[userList.size()]);
-    }
-
-    @Override
-    protected String getKindName()
-    {
-        return GDS_KIND;
     }
 }
