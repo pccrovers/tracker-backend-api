@@ -15,8 +15,6 @@ import java.util.List;
  */
 public class UserGroup extends BaseModel
 {
-    public static final String GDS_KIND = UserGroup.class.getSimpleName();
-
     /**
      * FLAG PERMISSIONS_READ = 1;
      */
@@ -45,8 +43,8 @@ public class UserGroup extends BaseModel
 
     public static UserGroup[] getByUserId(long userId)
     {
-        Query q = new Query(GDS_KIND);
-        q.setFilter(new Query.FilterPredicate(Entity.KEY_RESERVED_PROPERTY, Query.FilterOperator.EQUAL, KeyFactory.createKey(User.GDS_KIND, userId)));
+        Query q = new Query(UserGroup.class.getSimpleName());
+        q.setFilter(new Query.FilterPredicate(Entity.KEY_RESERVED_PROPERTY, Query.FilterOperator.EQUAL, KeyFactory.createKey(User.class.getSimpleName(), userId)));
 
         List<UserGroup> userGroupList = new ArrayList<>();
         for(Entity e : BaseBranch.DATASTORE.prepare(q).asIterable())

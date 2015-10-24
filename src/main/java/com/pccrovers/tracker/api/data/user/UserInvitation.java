@@ -6,8 +6,6 @@ import com.pccrovers.tracker.api.data.BaseModel;
 
 public class UserInvitation extends BaseModel
 {
-    public static final String GDS_KIND = UserInvitation.class.getSimpleName();
-
     /**
      * The id of the user in question
      */
@@ -20,9 +18,9 @@ public class UserInvitation extends BaseModel
 
     public static UserInvitation getByUserId(long userId)
     {
-        Query q = new Query(GDS_KIND);
+        Query q = new Query(UserInvitation.class.getSimpleName());
 
-        q.setFilter(new Query.FilterPredicate("userId", Query.FilterOperator.EQUAL, KeyFactory.createKey(User.GDS_KIND, userId)));
+        q.setFilter(new Query.FilterPredicate("userId", Query.FilterOperator.EQUAL, KeyFactory.createKey(User.class.getSimpleName(), userId)));
 
         UserInvitation invitation = new UserInvitation();
 

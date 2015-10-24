@@ -16,8 +16,6 @@ import java.util.List;
  */
 public class User extends BaseModel
 {
-    public static final String GDS_KIND = User.class.getSimpleName();
-
     /**
      * The account id received from google when the user accepts the invite
      */
@@ -37,8 +35,8 @@ public class User extends BaseModel
 
     public static User[] getByGroupId(long groupId)
     {
-        Query q = new Query(GDS_KIND);
-        q.setFilter(new Query.FilterPredicate(Entity.KEY_RESERVED_PROPERTY, Query.FilterOperator.EQUAL, KeyFactory.createKey(Group.GDS_KIND, groupId)));
+        Query q = new Query(User.class.getSimpleName());
+        q.setFilter(new Query.FilterPredicate(Entity.KEY_RESERVED_PROPERTY, Query.FilterOperator.EQUAL, KeyFactory.createKey(Group.class.getSimpleName(), groupId)));
 
         List<User> userList = new ArrayList<>();
         for(Entity e : BaseBranch.DATASTORE.prepare(q).asIterable())
