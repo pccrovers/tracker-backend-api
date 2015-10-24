@@ -18,6 +18,10 @@ public class BranchUser extends BaseBranch
     @Override
     public BaseBranch traverse(String path)
     {
+        if(path.equals("invitation"))
+        {
+            return new BranchUserInvitation(userId);
+        }
         return null;
     }
 
